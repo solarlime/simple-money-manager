@@ -27,11 +27,9 @@ class Entity {
    * что наследуется от Entity)
    * */
   static create( data, callback = f => f ) {
-    let newData = {};
-    for (let key in data) {
-      newData[key] = data[key];
-    }
-    newData._method = 'PUT';
+    let newData = Object.assign({
+      _method: 'PUT'
+    }, data);
     return createRequest({
       url: this.HOST + this.URL,
       data: newData,
@@ -46,11 +44,9 @@ class Entity {
    * (в зависимости от того, что наследуется от Entity)
    * */
   static get( id = '', data, callback = f => f ) {
-    let newData = {};
-    for (let key in data) {
-      newData[key] = data[key];
-    }
-    newData.id = id;
+    let newData = Object.assign({
+      id: id
+    }, data);
     return createRequest({
       url: this.HOST + this.URL,
       data: newData,
@@ -65,12 +61,10 @@ class Entity {
    * (в зависимости от того, что наследуется от Entity)
    * */
   static remove( id = '', data, callback = f => f ) {
-    let newData = {};
-    for (let key in data) {
-      newData[key] = data[key];
-    }
-    newData.id = id;
-    newData._method = 'DELETE';
+    let newData = Object.assign({
+      id: id,
+      _method: 'DELETE'
+    }, data);
     return createRequest({
       url: this.HOST + this.URL,
       data: newData,
