@@ -12,7 +12,11 @@ const createRequest = (options = {}) => {
         console.log(Object.keys(options.headers)[0], Object.values(options.headers)[0]);
     }
     if (options.method === 'GET') {
-        url = `${url}?${Object.keys(options.data)[0]}=${options.data.username}&${Object.keys(options.data)[1]}=${options.data.password}`;
+        url = `${url}?`;
+        for (let item in options.data) {
+            url += `${item}=${options.data[item]}&`;
+        }
+        url = url.slice(0, url.length - 1);
     }
     connection.open(options.method, url);
     connection.responseType = options.responseType;
@@ -24,8 +28,9 @@ const createRequest = (options = {}) => {
         connection.send();
     }
     else {
-        formData.append(Object.keys(options.data)[0], options.data.username);
-        formData.append(Object.keys(options.data)[1], options.data.password);
+        for (let item in options.data) {
+            formData.append(item, options.data[item]);
+        }
         connection.send(formData);
     }
 
@@ -34,11 +39,11 @@ const createRequest = (options = {}) => {
             options.callback(connection.status, 0);
         }
         else {
-            if (options.method === 'GET') {
-                options.callback(0, 'Data transferred by GET');
+            try {
+                options.callback(0, connection.response);
             }
-            else {
-                options.callback(0, formData);
+            catch (e) {
+                options.callback(e, 0);
             }
         }
     };
