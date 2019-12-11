@@ -31,9 +31,6 @@ class User {
       if (localStorage['user']) {
           return JSON.parse(localStorage['user']);
       }
-      else {
-          console.log('localstorage[user] does not exist');
-      }
   }
 
   /**
