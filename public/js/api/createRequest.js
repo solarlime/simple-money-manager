@@ -36,11 +36,13 @@ const createRequest = (options = {}) => {
     }
 
     connection.onreadystatechange = function () {
-        try {
-            options.callback(0, connection.response);
-        }
-        catch (e) {
-            options.callback(e, 0);
+        if (connection.readyState === 4) {
+            try {
+                options.callback(0, connection.response);
+            }
+            catch (e) {
+                options.callback(e, 0);
+            }
         }
     };
     return connection;
