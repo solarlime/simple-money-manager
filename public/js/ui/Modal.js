@@ -28,7 +28,7 @@ class Modal {
    * */
   registerEvents() {
     const closeButtons = document.querySelectorAll('button[data-dismiss="modal"]');
-    closeButtons.forEach((button) => button.addEventListener('click', this.buttonClick));
+    closeButtons.forEach((button) => button.addEventListener('click', this.onClose));
   }
 
   /**
@@ -37,13 +37,14 @@ class Modal {
    * */
   onClose(e) {
     this.close();
+    e.preventDefault();
   }
 
   /**
    * Удаляет обработчики событий
    * */
   unregisterEvents() {
-    this.element.removeEventListener('click', this.buttonClick);
+    this.element.removeEventListener('click', this.onClose);
   }
 
   /**
@@ -59,10 +60,5 @@ class Modal {
    * */
   close() {
     this.element.style.display = 'none';
-  }
-
-  buttonClick(event) {
-    this.onClose(this.element);
-    event.preventDefault();
   }
 }
