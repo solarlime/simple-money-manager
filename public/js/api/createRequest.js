@@ -6,7 +6,7 @@
 const createRequest = (options = {}) => {
   const connection = new XMLHttpRequest();
   const formData = new FormData();
-  let { url } = options;
+  let url = options.url;
 
   connection.responseType = options.responseType;
   connection.withCredentials = true;
