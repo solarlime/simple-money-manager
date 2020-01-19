@@ -10,6 +10,6 @@ class RegisterForm {
    * состояние App.setState( 'user-logged' )
    * и закрывает окно, в котором находится форма
    * */
-  onSubmit( options ) {
+  onSubmit(options) {
   }
 }

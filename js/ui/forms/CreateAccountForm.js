@@ -10,7 +10,7 @@ class CreateAccountForm {
    * а также вызывает App.update()
    * и сбрасывает форму
    * */
-  onSubmit( options ) {
+  onSubmit(options) {
 
   }
 }

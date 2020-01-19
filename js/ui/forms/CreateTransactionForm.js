@@ -8,7 +8,7 @@ class CreateTransactionForm {
    * Вызывает родительский конструктор и
    * метод renderAccountsList
    * */
-  constructor( element ) {
+  constructor(element) {
 
   }
 
@@ -26,7 +26,7 @@ class CreateTransactionForm {
    * вызывает App.update(), сбрасывает форму и закрывает окно,
    * в котором находится форма
    * */
-  onSubmit( options ) {
+  onSubmit(options) {
 
   }
 }

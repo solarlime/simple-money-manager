@@ -12,7 +12,7 @@ class AsyncForm {
    * Сохраняет переданный элемент и регистрирует события
    * через registerEvents()
    * */
-  constructor( element ) {
+  constructor(element) {
 
   }
 
@@ -35,7 +35,7 @@ class AsyncForm {
 
   }
 
-  onSubmit( options ) {
+  onSubmit(options) {
 
   }
 
