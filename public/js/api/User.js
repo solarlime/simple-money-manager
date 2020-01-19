@@ -68,6 +68,9 @@ class User {
           responseType: 'json',
           method: 'POST',
           callback: (err, response) => {
+              if (response.user) {
+                  this.setCurrent(response.user);
+              }
               callback(err, response);
           }
       });
@@ -105,6 +108,9 @@ class User {
           responseType: 'json',
           method: 'POST',
           callback: (err, response) => {
+              if (response.user) {
+                  this.unsetCurrent(response.user);
+              }
               callback(err, response);
           }
       });
