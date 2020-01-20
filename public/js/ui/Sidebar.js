@@ -7,9 +7,10 @@ class Sidebar {
   /**
    * Запускает initAuthLinks и initToggleButton
    * */
-  static init() {
+  static init(app) {
     this.initAuthLinks();
     this.initToggleButton();
+    this.app = app;
   }
 
   /**
@@ -29,11 +30,29 @@ class Sidebar {
   /**
    * При нажатии на кнопку входа, показывает окно входа
    * (через найденное в App.getModal)
-   * При нажатии на кнопку регастрации показывает окно регистрации
+   * При нажатии на кнопку регистрации показывает окно регистрации
    * При нажатии на кнопку выхода вызывает User.logout и по успешному
    * выходу устанавливает App.setState( 'init' )
    * */
   static initAuthLinks() {
+    const regElem = document.querySelector('li.menu-item_register');
+    const loginElem = document.querySelector('li.menu-item_login');
+    const logoutElem = document.querySelector('li.menu-item_logout');
 
+    regElem.addEventListener('click', () => {
+      this.app.getModal('register').open();
+    });
+
+    loginElem.addEventListener('click', () => {
+      this.app.getModal('login').open();
+    });
+
+    logoutElem.addEventListener('click', () => {
+      User.logout(0, (err, response) => {
+        if (response.success) {
+          this.app.setState('init');
+        }
+      });
+    });
   }
 }
