@@ -28,7 +28,7 @@ class Modal {
    * */
   registerEvents() {
     const closeButtons = document.querySelectorAll('button[data-dismiss="modal"]');
-    closeButtons.forEach((button) => button.addEventListener('click', this.onClose));
+    closeButtons.forEach((button) => button.addEventListener('click', (e) => this.onClose(e)));
   }
 
   /**
