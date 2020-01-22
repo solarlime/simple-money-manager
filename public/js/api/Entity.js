@@ -76,21 +76,3 @@ class Entity {
     });
   }
 }
-/*
-const data = {
-  mail: 'ivan@biz.pro',
-  password: 'odinodin'
-};
-const callback = (err, response) => {
-  if (err) {
-    console.log('Error: ', err);
-  }
-  else {
-    console.log(...response);
-  }
-};
-console.log(Entity.list(data, callback));
-console.log(Entity.create(data, callback));
-console.log(Entity.get(10, data, callback));
-console.log(Entity.remove(10, data, callback));
-*/
