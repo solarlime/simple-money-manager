@@ -13,7 +13,13 @@ class AccountsWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor(element) {
-
+    if (element) {
+      this.element = element;
+      this.registerEvents();
+      this.update();
+    } else {
+      console.error('Element does not exist!');
+    }
   }
 
   /**
@@ -24,7 +30,12 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
+    const createAccountElem = document.querySelector('.create-account');
 
+    createAccountElem.addEventListener('click', () => {
+      App.getModal('createAccount').open();
+      AccountsWidget.onSelectAccount();
+    });
   }
 
   /**
@@ -38,7 +49,13 @@ class AccountsWidget {
    * метода renderItem()
    * */
   update() {
-
+    if (User.current()) {
+      let list = Account.list();
+      this.clear();
+      list.forEach((item) => (this.renderItem(item)));
+    } else {
+      console.error('No authorised user!');
+    }
   }
 
   /**
