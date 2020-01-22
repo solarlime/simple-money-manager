@@ -7,10 +7,9 @@ class Sidebar {
   /**
    * Запускает initAuthLinks и initToggleButton
    * */
-  static init(app) {
+  static init() {
     this.initAuthLinks();
     this.initToggleButton();
-    this.app = app;
   }
 
   /**
@@ -40,17 +39,17 @@ class Sidebar {
     const logoutElem = document.querySelector('li.menu-item_logout');
 
     regElem.addEventListener('click', () => {
-      this.app.getModal('register').open();
+      App.getModal('register').open();
     });
 
     loginElem.addEventListener('click', () => {
-      this.app.getModal('login').open();
+      App.getModal('login').open();
     });
 
     logoutElem.addEventListener('click', () => {
       User.logout(0, (err, response) => {
         if (response.success) {
-          this.app.setState('init');
+          App.setState('init');
         }
       });
     });

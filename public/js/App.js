@@ -17,7 +17,7 @@ class App {
     this.initWidgets();
     this.initModals();
 
-    Sidebar.init(this);
+    Sidebar.init();
 
     this.initUser();
   }
