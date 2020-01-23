@@ -34,8 +34,12 @@ class AccountsWidget {
 
     createAccountElem.addEventListener('click', () => {
       App.getModal('createAccount').open();
-      AccountsWidget.onSelectAccount();
     });
+
+    document.querySelectorAll('li.account').forEach((item) =>
+        item.addEventListener('click', () => {
+          this.onSelectAccount(this.onSelectAccount(item));
+        }));
   }
 
   /**
@@ -49,13 +53,15 @@ class AccountsWidget {
    * метода renderItem()
    * */
   update() {
-    if (User.current()) {
-      let list = Account.list();
-      this.clear();
-      list.forEach((item) => (this.renderItem(item)));
-    } else {
-      console.error('No authorised user!');
-    }
+    let list = Account.list(User.current(), (err, response) => {
+      if (response) {
+        this.clear();
+        response.data.forEach((item) => (this.renderItem(item)));
+      }
+      else {
+        console.error('No authorised user!');
+      }
+    });
   }
 
   /**
@@ -64,7 +70,8 @@ class AccountsWidget {
    * в боковой колонке
    * */
   clear() {
-
+    let clearList = document.querySelectorAll('li.account');
+    clearList.forEach((item) => item.remove());
   }
 
   /**
@@ -75,7 +82,12 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount(element) {
-
+    let actives = document.querySelectorAll('.active');
+    if (actives.length > 0) {
+      actives.classList.remove('active');
+    }
+    element.classList.add('active');
+    App.showPage('transactions');
   }
 
   /**
@@ -84,7 +96,25 @@ class AccountsWidget {
    * item - объект с данными о счёте
    * */
   getAccountHTML(item) {
+    let li = document.createElement('li');
+    li.setAttribute('class', 'active account');
+    li.setAttribute('data-id', item.id);
 
+    let a = document.createElement('a');
+    a.setAttribute('href', '#');
+    li.appendChild(a);
+
+    let nameSpan = document.createElement('span');
+    nameSpan.innerText = item.name;
+    a.appendChild(nameSpan);
+
+    a.insertAdjacentText('beforeend', ' / ');
+
+    let sumSpan = document.createElement('span');
+    sumSpan.innerText = item.sum;
+    a.appendChild(sumSpan);
+
+    return li;
   }
 
   /**
@@ -94,6 +124,6 @@ class AccountsWidget {
    * и добавляет его внутрь элемента виджета
    * */
   renderItem(item) {
-
+    this.element.appendChild(this.getAccountHTML(item));
   }
 }
