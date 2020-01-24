@@ -36,10 +36,11 @@ class AccountsWidget {
       App.getModal('createAccount').open();
     });
 
-    document.querySelectorAll('li.account').forEach((item) =>
-        item.addEventListener('click', () => {
-          this.onSelectAccount(this.onSelectAccount(item));
-        }));
+    document.querySelectorAll('li.account').forEach((item) => {
+      item.addEventListener('click', () => {
+        this.onSelectAccount(this.onSelectAccount(item));
+      });
+    });
   }
 
   /**
@@ -53,12 +54,11 @@ class AccountsWidget {
    * метода renderItem()
    * */
   update() {
-    let list = Account.list(User.current(), (err, response) => {
+    Account.list(User.current(), (err, response) => {
       if (response) {
         this.clear();
         response.data.forEach((item) => (this.renderItem(item)));
-      }
-      else {
+      } else {
         console.error('No authorised user!');
       }
     });
