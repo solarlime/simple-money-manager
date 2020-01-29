@@ -10,7 +10,7 @@ class CreateTransactionForm extends AsyncForm {
    * */
   constructor(element) {
     super(element);
-    this.renderAccountsList();
+    // this.renderAccountsList();
   }
 
   /**
@@ -20,13 +20,18 @@ class CreateTransactionForm extends AsyncForm {
   renderAccountsList() {
     Account.list(User.current(), (err, response) => {
       if (response) {
-        console.log(response.data);
-        console.log(this.element);
-        response.data.forEach((item) => {
-          let option = document.createElement('option');
-          const selectIncome = this.element.querySelector('#income-accounts-list');
-          const selectExpense = this.element.querySelector('#expense-accounts-list');
+        console.log(response);
+        const selectIncome = this.element.querySelector('#income-accounts-list');
+        const selectExpense = this.element.querySelector('#expense-accounts-list');
 
+        if (selectIncome) {
+          Array.from(selectIncome.children).forEach((item) => selectIncome.removeChild(item));
+        } else {
+          Array.from(selectExpense.children).forEach((item) => selectExpense.removeChild(item));
+        }
+
+        response.data.forEach((item) => {
+          const option = document.createElement('option');
           option.setAttribute('value', item.id);
           option.insertAdjacentText('beforeend', item.name);
 
