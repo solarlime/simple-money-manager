@@ -11,4 +11,12 @@ class Transaction extends Entity {
     }
 
     static URL = '/transaction';
+
+    static remove(id = '', data, callback = f => f) {
+        let newData = Object.assign({
+            transaction: id,
+            _method: 'DELETE'
+        }, data);
+        super.remove(newData, callback);
+    }
 }
