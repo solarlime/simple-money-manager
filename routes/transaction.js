@@ -2,6 +2,7 @@ const router = require('express').Router();
 const multer = require('multer');
 
 const upload = multer();
+const uniqid = require('uniqid');
 
 const low = require('lowdb');
 
@@ -24,10 +25,10 @@ router.post('/', upload.none(), (request, response) => {
   const transactions = db.get('transactions');// получение всех транзакций
   const { _method } = request.body;// получение используемого HTTP метода
   if (_method == 'DELETE') { // если метод DELETE...
-    const { id } = request.body;// получение id из тела запроса
-    const removingTransaction = transactions.find({ id });// нахождение удаляемой транзакции
+    const { transaction } = request.body;// получение id из тела запроса
+    const removingTransaction = transactions.find({ transaction });// нахождение удаляемой транзакции
     if (removingTransaction.value()) { // если значение транзакции существует...
-      transactions.remove({ id }).write();// удалить транзакцию и записать это в БД
+      transactions.remove({ transaction }).write();// удалить транзакцию и записать это в БД
       response.json({ success: true });// отправление ответа с успешностью
     } else { // если значение транзакции не существует...
       response.json({ success: false });// отправление ответа с неуспешностью
@@ -45,7 +46,13 @@ router.post('/', upload.none(), (request, response) => {
       const currentUserId = currentUser.user_id;// получить id текущего пользователя
       // добавление существующей транзакцию к списку и записывание в БД
       transactions.push({
-        type: type.toUpperCase(), name, sum: +sum, account_id, user_id: currentUserId, created_at: new Date().toISOString(),
+        type: type.toUpperCase(),
+        name,
+        transaction: uniqid(),
+        sum: +sum,
+        account_id,
+        user_id: currentUserId,
+        created_at: new Date().toISOString(),
       }).write();
       response.json({ success: true });// отправление ответа с успешностью
     }
