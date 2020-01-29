@@ -62,14 +62,10 @@ class Entity {
    * Удаляет информацию о счёте или доходе/расходе
    * (в зависимости от того, что наследуется от Entity)
    * */
-  static remove( id = '', data, callback = f => f ) {
-    let newData = Object.assign({
-      id: id,
-      _method: 'DELETE'
-    }, data);
+  static remove( data, callback ) {
     return createRequest({
       url: this.HOST + this.URL,
-      data: newData,
+      data: data,
       responseType: 'json',
       method: 'POST',
       callback: callback
