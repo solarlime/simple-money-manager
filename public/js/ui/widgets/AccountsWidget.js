@@ -15,8 +15,7 @@ class AccountsWidget {
   constructor(element) {
     if (element) {
       this.element = element;
-      this.registerEvents();
-      this.update();
+      // this.update();
     } else {
       console.error('Element does not exist!');
     }
@@ -36,9 +35,13 @@ class AccountsWidget {
       App.getModal('createAccount').open();
     });
 
-    document.querySelectorAll('li.account').forEach((item) => {
+    const defaultAccount = this.element.querySelector('li.account');
+    defaultAccount.classList.add('active');
+    App.showPage('transactions', { account_id: defaultAccount.getAttribute('data-id') });
+
+    this.element.querySelectorAll('li.account').forEach((item) => {
       item.addEventListener('click', () => {
-        this.onSelectAccount(this.onSelectAccount(item));
+        this.onSelectAccount(item);
       });
     });
   }
@@ -54,14 +57,15 @@ class AccountsWidget {
    * метода renderItem()
    * */
   update() {
-    Account.list(User.current(), (err, response) => {
-      if (response) {
-        this.clear();
-        response.data.forEach((item) => (this.renderItem(item)));
-      } else {
-        console.error('No authorised user!');
-      }
-    });
+    if (User.current()) {
+      Account.list(User.current(), (err, response) => {
+        if (response) {
+          this.clear();
+          response.data.forEach((item) => (this.renderItem(item)));
+          this.registerEvents();
+        }
+      });
+    }
   }
 
   /**
@@ -70,8 +74,7 @@ class AccountsWidget {
    * в боковой колонке
    * */
   clear() {
-    let clearList = document.querySelectorAll('li.account');
-    clearList.forEach((item) => item.remove());
+    this.element.querySelectorAll('li.account').forEach((item) => item.remove());
   }
 
   /**
@@ -82,12 +85,12 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount(element) {
-    let actives = document.querySelectorAll('.active');
-    if (actives.length > 0) {
-      actives.classList.remove('active');
+    let active = document.querySelector('.active');
+    if (active) {
+      active.classList.remove('active');
     }
     element.classList.add('active');
-    App.showPage('transactions');
+    App.showPage('transactions', { account_id: element.getAttribute('data-id') });
   }
 
   /**
@@ -97,7 +100,7 @@ class AccountsWidget {
    * */
   getAccountHTML(item) {
     let li = document.createElement('li');
-    li.setAttribute('class', 'active account');
+    li.setAttribute('class', 'account');
     li.setAttribute('data-id', item.id);
 
     let a = document.createElement('a');
