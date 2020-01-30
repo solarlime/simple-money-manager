@@ -1,165 +1,69 @@
 {
   "users": [
     {
-      "name": "demo",
+      "name": "Demo",
       "email": "demo@demo",
       "password": "demo",
-      "id": "1",
+      "id": "8z49ebaxgk5zkcy06",
+      "isAuthorized": false
+    },
+    {
+      "name": "Greg",
+      "email": "greg@focker.com",
+      "password": "gaylord",
+      "id": "8z49eb11sk5zo4gtu",
       "isAuthorized": false
     }
   ],
   "accounts": [
     {
-      "name": "Банк",
-      "user_id": "1",
-      "id": "1"
+      "name": "Наличные",
+      "user_id": "8z49ebaxgk5zkcy06",
+      "id": "8z49eb11sk5zns12e"
     },
     {
-      "name": "Магазин",
-      "user_id": "1",
-      "id": "2"
+      "name": "Карта",
+      "user_id": "8z49eb11sk5zo4gtu",
+      "id": "8z49eb48ok5zoiel1"
     },
     {
-      "name": "Бизнес",
-      "user_id": "1",
-      "id": "3"
+      "name": "Наличные",
+      "user_id": "8z49eb11sk5zo4gtu",
+      "id": "8z49ebbmok5zoikli"
     }
   ],
   "transactions": [
     {
-      "account_id": "1",
-      "created_at": "2019-09-15 10:24:02",
-      "id": "1",
-      "name": "Кредит",
-      "sum": 5000,
+      "type": "INCOME",
+      "name": "Нашёл",
+      "transaction": "8z49ebb5gk5zns8le",
+      "sum": 500,
+      "account_id": "8z49eb11sk5zns12e",
+      "created_at": "2020-01-29T18:44:18.433Z"
+    },
+    {
       "type": "EXPENSE",
-      "user_id": "1"
+      "name": "Ресторан",
+      "transaction": "8z49eb8rck5zom8lc",
+      "sum": 1000,
+      "account_id": "8z49eb48ok5zoiel1",
+      "created_at": "2020-01-29T19:07:38.111Z"
     },
     {
-      "account_id": "1",
-      "created_at": "2019-09-17 15:53:02",
-      "id": "2",
-      "name": "Баланс на дебетовке",
-      "sum": 3200,
       "type": "INCOME",
-      "user_id": "1"
+      "name": "Премия",
+      "transaction": "8z49ebb74k5zq6b5m",
+      "sum": 2000,
+      "account_id": "8z49ebbmok5zoikli",
+      "created_at": "2020-01-29T19:51:14.169Z"
     },
     {
-      "account_id": "1",
-      "created_at": "2019-09-19 20:12:02",
-      "id": "3",
-      "name": "Копилка",
-      "sum": 1500,
-      "type": "INCOME",
-      "user_id": "1"
-    },
-    {
-      "account_id": "2",
-      "created_at": "2019-09-26 16:23:02",
-      "id": "4",
-      "name": "Молочные продукты",
-      "sum": 100,
-      "type": "INCOME",
-      "user_id": "1"
-    },
-    {
-      "account_id": "2",
-      "created_at": "2019-09-25 15:03:02",
-      "id": "5",
-      "name": "Фрукты",
-      "sum": 250,
-      "type": "INCOME",
-      "user_id": "1"
-    },
-    {
-      "account_id": "2",
-      "created_at": "2019-09-25 15:03:02",
-      "id": "17",
-      "name": "Овощи",
-      "sum": 300,
-      "type": "INCOME",
-      "user_id": "1"
-    },
-    {
-      "account_id": "2",
-      "created_at": "2019-09-26 14:47:02",
-      "id": "6",
-      "name": "Мясо",
-      "sum": 600,
-      "type": "INCOME",
-      "user_id": "1"
-    },
-    {
-      "account_id": "2",
-      "created_at": "2019-09-27 13:27:02",
-      "id": "7",
-      "name": "Долг в банк",
-      "sum": 5000,
       "type": "EXPENSE",
-      "user_id": "1"
-    },
-    {
-      "account_id": "3",
-      "created_at": "2017-10-15 13:27:02",
-      "id": "9",
-      "name": "На банду",
-      "sum": 15000,
-      "type": "EXPENSE",
-      "user_id": "1"
-    },
-    {
-      "account_id": "3",
-      "created_at": "2017-09-17 13:27:02",
-      "id": "10",
-      "name": "На стволы",
-      "sum": 6000,
-      "type": "EXPENSE",
-      "user_id": "1"
-    },
-    {
-      "account_id": "3",
-      "created_at": "2017-12-27 13:27:02",
-      "id": "11",
-      "name": "Прибыль с банка",
-      "sum": 1500000,
-      "type": "INCOME",
-      "user_id": "1"
-    },
-    {
-      "account_id": "3",
-      "created_at": "2018-01-15 13:27:02",
-      "id": "12",
-      "name": "Прибыль с магазина",
-      "sum": 300000,
-      "type": "INCOME",
-      "user_id": "1"
-    },
-    {
-      "account_id": "3",
-      "created_at": "2018-01-15 13:27:02",
-      "id": "13",
-      "name": "Подарок сизого",
-      "sum": 20000,
-      "type": "INCOME",
-      "user_id": "1"
-    },
-    {
-      "account_id": "3",
-      "created_at": "2017-09-15 13:27:02",
-      "id": "14",
-      "name": "На охрану",
-      "sum": 60000,
-      "type": "EXPENSE",
-      "user_id": "1"
-    },
-    {
-      "account_id": "3",
-      "created_at": "2017-10-15 13:27:02",
-      "id": "15",
-      "name": "На бумер",
-      "sum": 300000,
-      "type": "EXPENSE",
-      "user_id": "1"
+      "name": "Потерял",
+      "transaction": "8z49ebb74k5zqx5is",
+      "sum": 200,
+      "account_id": "8z49ebbmok5zoikli",
+      "created_at": "2020-01-29T20:12:06.579Z"
     }
   ]
 }
