@@ -13,7 +13,6 @@ class TransactionsPage {
   constructor(element) {
     if (element) {
       this.element = element;
-      this.lastOptions = 0;
       this.registerEvents();
     } else {
       console.error('Element does not exist!');
@@ -24,7 +23,12 @@ class TransactionsPage {
    * Вызывает метод render для отрисовки страницы
    * */
   update() {
-    this.render();
+    console.log(this.lastOptions);
+    if (this.lastOptions) {
+      this.render(this.lastOptions);
+    } else {
+      this.render();
+    }
   }
 
   /**
@@ -69,7 +73,7 @@ class TransactionsPage {
     if (confirmation) {
       Transaction.remove(id, User.current(), (err, response) => {
         console.log(id);
-        console.log(response);
+        console.log(User.current());
         if (response) {
           App.update();
         }
@@ -83,15 +87,15 @@ class TransactionsPage {
    * Получает список Transaction.list и полученные данные передаёт
    * в TransactionsPage.renderTransactions()
    * */
-  render(options = 0) {
+  render(options = false) {
     if (options) {
-      this.lastOptions = options;
       Account.get(options.account_id, User.current(), (err, response) => {
         if (response) {
           this.renderTitle(response.data.find((item) => item.id === options.account_id).name);
           Transaction.list(options, (err, response) => {
             if (response) {
               this.renderTransactions(response.data);
+              this.lastOptions = options;
             }
           });
         }
@@ -173,13 +177,10 @@ class TransactionsPage {
    * используя getTransactionHTML
    * */
   renderTransactions(data = 0) {
-    console.log(data);
     const content = document.querySelector('.content');
-    console.log(content);
     Array.from(content.children).forEach((item) => content.removeChild(item));
     if (data !== 0) {
       for (const item of data) {
-        console.log(item);
         document.querySelector('.content').append(this.getTransactionHTML(item));
       }
     }
