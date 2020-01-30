@@ -11,4 +11,14 @@ class Account extends Entity {
     }
 
     static URL = '/account';
+
+    static remove(id = '', data, callback = f => f) {
+        console.log(id);
+        let newData = Object.assign({
+            account: id,
+            _method: 'DELETE'
+        }, data);
+        console.log(newData);
+        super.remove(newData, callback);
+    }
 }
