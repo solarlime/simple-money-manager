@@ -70,8 +70,11 @@ class User {
           callback: (err, response) => {
               if (response.user) {
                   this.setCurrent(response.user);
+                  callback(err, response);
               }
-              callback(err, response);
+              else {
+                  alert('Ошибка! Попробуйте ещё раз.');
+              }
           }
       });
   }
