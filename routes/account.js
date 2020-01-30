@@ -19,7 +19,7 @@ router.post('/', upload.none(), (request, response) => {
   { createAccount(response, name); }// создание счёта
 
   if (_method == 'DELETE') { // если метод DELETE...
-    removeAccount(response, request.body.id);// удаление счёта
+    removeAccount(response, request.body.account);// удаление счёта
   }
 });
 
@@ -54,9 +54,11 @@ function createAccount(response, name) {
 function removeAccount(response, id) {
   const db = low(new FileSync('db.json'));// получение БД
   const accounts = db.get('accounts');// получение списка счетов
+  const transactions = db.get('transactions');
   const removingAccount = accounts.find({ id });// нахождение нужного удаляемого счёта
   if (removingAccount.value()) { // если удаляемый аккаунт существует
     accounts.remove({ id }).write();// удалить и перезаписать аккаунт
+    transactions.remove({ account_id: id }).write();
     response.json({ success: true });// отправка ответа успешности
   } else { // если аккаунта нету
     response.json({ success: false });// отправка ответа неуспешности
