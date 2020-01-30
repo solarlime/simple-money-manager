@@ -60,5 +60,6 @@ class Modal {
    * */
   close() {
     this.element.style.display = 'none';
+    Array.from(document.forms).forEach((item) => item.reset());
   }
 }
