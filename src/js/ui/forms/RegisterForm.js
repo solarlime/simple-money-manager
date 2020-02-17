@@ -1,9 +1,14 @@
+/* eslint-disable class-methods-use-this, import/no-cycle */
+import App from '../../app';
+import User from '../../api/User';
+import AsyncForm from './AsyncForm';
+
 /**
  * Класс RegisterForm управляет формой
- * регистрации
+ * регистрации.
  * Наследуется от AsyncForm
  * */
-class RegisterForm extends AsyncForm {
+export default class RegisterForm extends AsyncForm {
   /**
    * Производит регистрацию с помощью User.register
    * После успешной регистрации устанавливает

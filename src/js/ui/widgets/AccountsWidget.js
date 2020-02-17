@@ -1,8 +1,13 @@
+/* eslint-disable class-methods-use-this, import/no-cycle */
+import App from '../../app';
+import User from '../../api/User';
+import Account from '../../api/Account';
+
 /**
  * Класс AccountsWidget управляет блоком
  * отображения счетов в боковой колонке
  * */
-class AccountsWidget {
+export default class AccountsWidget {
   /**
    * Устанавливает текущий элемент в свойство element
    * Регистрирует обработчики событий с помощью
@@ -85,7 +90,7 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount(element) {
-    let active = document.querySelector('.active');
+    const active = document.querySelector('.active');
     if (active) {
       active.classList.remove('active');
     }
@@ -99,21 +104,21 @@ class AccountsWidget {
    * item - объект с данными о счёте
    * */
   getAccountHTML(item) {
-    let li = document.createElement('li');
+    const li = document.createElement('li');
     li.setAttribute('class', 'account');
     li.setAttribute('data-id', item.id);
 
-    let a = document.createElement('a');
+    const a = document.createElement('a');
     a.setAttribute('href', '#');
     li.appendChild(a);
 
-    let nameSpan = document.createElement('span');
+    const nameSpan = document.createElement('span');
     nameSpan.innerText = item.name;
     a.appendChild(nameSpan);
 
     a.insertAdjacentText('beforeend', ' / ');
 
-    let sumSpan = document.createElement('span');
+    const sumSpan = document.createElement('span');
     sumSpan.innerText = item.sum;
     a.appendChild(sumSpan);
 

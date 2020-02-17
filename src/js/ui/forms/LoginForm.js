@@ -1,9 +1,14 @@
+/* eslint-disable class-methods-use-this, import/no-cycle */
+import App from '../../app';
+import User from '../../api/User';
+import AsyncForm from './AsyncForm';
+
 /**
  * Класс LoginForm управляет формой
  * входа в портал
  * Наследуется от AsyncForm
  * */
-class LoginForm extends AsyncForm{
+export default class LoginForm extends AsyncForm {
   /**
    * Производит авторизацию с помощью User.login
    * После успешной авторизации, сбрасывает форму,

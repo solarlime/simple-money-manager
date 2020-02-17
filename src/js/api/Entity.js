@@ -1,11 +1,15 @@
+import createRequest from './createRequest';
+
 /**
  * Класс Entity - базовый для взаимодействия с сервером.
  * Имеет свойство URL, равно пустой строке.
- * Имеет свойство HOST, равно 'https://bhj-diplom.letsdocode.ru'.
+ * Имеет свойство HOST, равно адресу запуска сервера.
  * */
-class Entity {
+export default class Entity {
   static HOST = 'http://localhost:8000';
+
   static URL = '';
+
   /**
    * Запрашивает с сервера список данных.
    * Это могут быть счета или доходы/расходы

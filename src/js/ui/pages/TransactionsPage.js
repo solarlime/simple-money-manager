@@ -1,9 +1,15 @@
+/* eslint-disable class-methods-use-this, no-unused-vars, import/no-cycle */
+import App from '../../app';
+import User from '../../api/User';
+import Account from '../../api/Account';
+import Transaction from '../../api/Transaction';
+
 /**
  * Класс TransactionsPage управляет
  * страницей отображения доходов и
  * расходов конкретного счёта
  * */
-class TransactionsPage {
+export default class TransactionsPage {
   /**
    * Если переданный элемент не существует,
    * необходимо выкинуть ошибку.
@@ -44,7 +50,7 @@ class TransactionsPage {
   }
 
   /**
-   * Удаляет счёт. Необходимо показать диаголовое окно (с помощью confirm())
+   * Удаляет счёт. Необходимо показать диалоговое окно (с помощью confirm())
    * Если пользователь согласен удалить счёт, вызовите
    * Account.remove, а также TransactionsPage.clear с
    * пустыми данными для того, чтобы очистить страницу.
@@ -52,6 +58,7 @@ class TransactionsPage {
    * для обновления приложения
    * */
   removeAccount(id) {
+    // eslint-disable-next-line no-restricted-globals
     const confirmation = confirm('Вы действительно хотите удалить счёт?');
     if (confirmation) {
       Account.remove(id, User.current(), (err, response) => {
@@ -65,10 +72,11 @@ class TransactionsPage {
 
   /**
    * Удаляет транзакцию (доход или расход). Требует
-   * подтверждеия действия (с помощью confirm()).
+   * подтверждения действия (с помощью confirm()).
    * По удалению транзакции вызовите метод App.update()
    * */
   removeTransaction(id) {
+    // eslint-disable-next-line no-restricted-globals
     const confirmation = confirm('Вы действительно хотите удалить транзакцию?');
     if (confirmation) {
       Transaction.remove(id, User.current(), (err, response) => {
@@ -89,9 +97,9 @@ class TransactionsPage {
    * */
   render(options = false) {
     if (options) {
-      Account.get(options.account_id, User.current(), (err, response) => {
-        if (response) {
-          this.renderTitle(response.data.find((item) => item.id === options.account_id).name);
+      Account.get(options.account_id, User.current(), (e, res) => {
+        if (res) {
+          this.renderTitle(res.data.find((item) => item.id === options.account_id).name);
           Transaction.list(options, (err, response) => {
             if (response) {
               this.renderTransactions(response.data);

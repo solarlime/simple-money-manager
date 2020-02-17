@@ -1,9 +1,14 @@
+/* eslint-disable class-methods-use-this, import/no-cycle */
+import App from '../../app';
+import AsyncForm from './AsyncForm';
+import Account from '../../api/Account';
+
 /**
  * Класс CreateAccountForm управляет формой
  * создания нового счёта
  * Наследуется от AsyncForm
  * */
-class CreateAccountForm extends AsyncForm {
+export default class CreateAccountForm extends AsyncForm {
   /**
    * Создаёт счёт с помощью Account.create и закрывает
    * окно (в котором находится форма) в случае успеха,

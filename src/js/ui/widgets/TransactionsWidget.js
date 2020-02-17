@@ -1,9 +1,12 @@
+/* eslint-disable class-methods-use-this, import/no-cycle */
+import App from '../../app';
+
 /**
  * Класс TransactionsWidget отвечает за
  * открытие всплывающих окон для
  * создания нового дохода или расхода
  * */
-class TransactionsWidget {
+export default class TransactionsWidget {
   /**
    * Устанавливает полученный элемент
    * в свойство element.

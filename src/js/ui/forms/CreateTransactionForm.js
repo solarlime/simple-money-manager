@@ -1,9 +1,16 @@
+/* eslint-disable no-useless-constructor, import/no-cycle */
+import App from '../../app';
+import User from '../../api/User';
+import AsyncForm from './AsyncForm';
+import Account from '../../api/Account';
+import Transaction from '../../api/Transaction';
+
 /**
  * Класс CreateTransactionForm управляет формой
  * создания новой транзакции
  * Наследуется от AsyncForm
  * */
-class CreateTransactionForm extends AsyncForm {
+export default class CreateTransactionForm extends AsyncForm {
   /**
    * Вызывает родительский конструктор и
    * метод renderAccountsList

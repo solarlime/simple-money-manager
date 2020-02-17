@@ -1,10 +1,23 @@
+/* eslint-disable import/no-cycle */
+import Sidebar from './ui/Sidebar';
+import User from './api/User';
+import Modal from './ui/Modal';
+import TransactionsPage from './ui/pages/TransactionsPage';
+import AccountsWidget from './ui/widgets/AccountsWidget';
+import TransactionsWidget from './ui/widgets/TransactionsWidget';
+import UserWidget from './ui/widgets/UserWidget';
+import RegisterForm from './ui/forms/RegisterForm';
+import LoginForm from './ui/forms/LoginForm';
+import CreateAccountForm from './ui/forms/CreateAccountForm';
+import CreateTransactionForm from './ui/forms/CreateTransactionForm';
+
 /**
  * Класс App управляет всем приложением
  * */
-class App {
+export default class App {
   /**
    * С вызова этого метода начинается работа всего приложения
-   * Он производит перваоначальную настройку всех
+   * Он производит первоначальную настройку всех
    * страниц, форм, виджетов, всплывающих окон, а также
    * боковой колонки
    * */

@@ -1,9 +1,13 @@
+/* eslint-disable import/no-cycle */
+import App from '../app';
+import User from '../api/User';
+
 /**
  * Класс Sidebar отвечает за работу боковой колонки:
  * кнопки скрытия/показа колонки в мобильной версии сайта
  * и за кнопки меню
  * */
-class Sidebar {
+export default class Sidebar {
   /**
    * Запускает initAuthLinks и initToggleButton
    * */

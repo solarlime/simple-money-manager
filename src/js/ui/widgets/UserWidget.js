@@ -1,9 +1,12 @@
+/* eslint-disable class-methods-use-this */
+import User from '../../api/User';
+
 /**
  * Класс UserWidget отвечает за
  * отображение информации о имени пользователя
  * после авторизации или его выхода из системы
  * */
-class UserWidget {
+export default class UserWidget {
   /**
    * Устанавливает полученный элемент
    * в свойство element.
@@ -14,6 +17,7 @@ class UserWidget {
     if (element) {
       this.element = element;
     } else {
+      // eslint-disable-next-line no-console
       console.error('Element does not exist!');
     }
   }

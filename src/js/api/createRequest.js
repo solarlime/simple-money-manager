@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars, guard-for-in,prefer-destructuring */
 
 /**
  * Основная функция для совершения запросов
  * на сервер.
  * */
-const createRequest = (options = {}) => {
+export default function createRequest(options = {}) {
   const connection = new XMLHttpRequest();
   const formData = new FormData();
   let url = options.url;
@@ -48,4 +49,4 @@ const createRequest = (options = {}) => {
 
   connection.addEventListener('readystatechange', responseListener);
   return connection;
-};
+}

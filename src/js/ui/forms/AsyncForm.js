@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars,class-methods-use-this */
 /**
  * Класс AsyncForm управляет всеми формами
  * приложения, которые не должны быть отправлены с
@@ -5,7 +6,7 @@
  * с таких форм собираются и передаются в метод onSubmit
  * для последующей обработки
  * */
-class AsyncForm {
+export default class AsyncForm {
   /**
    * Если переданный элемент не существует,
    * необходимо выкинуть ошибку.
@@ -44,12 +45,13 @@ class AsyncForm {
     const entries = formData.entries();
     const data = {};
     for (const item of entries) {
+      // TODO: Array destructing
+      // eslint-disable-next-line prefer-destructuring
       data[item[0]] = item[1];
     }
     return data;
   }
 
-  // eslint-disable-next-line no-unused-vars
   onSubmit(options) {
   }
 
