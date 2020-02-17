@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const router = require('express').Router();
 const multer = require('multer');
 
@@ -6,10 +7,7 @@ const uniqid = require('uniqid');
 
 const low = require('lowdb');
 
-const FileSync = require('lowdb/adapters/FileSync', {
-  serialize: (data) => encrypt(JSON.stringify(data)),
-  deserialize: (data) => JSON.parse(decrypt(data)),
-});
+const FileSync = require('lowdb/adapters/FileSync');
 
 // запрос списка транзакций
 router.get('/', upload.none(), (request, response) => {
@@ -24,25 +22,29 @@ router.post('/', upload.none(), (request, response) => {
   const db = low(new FileSync('db.json'));// получение БД
   const transactions = db.get('transactions');// получение всех транзакций
   const { _method } = request.body;// получение используемого HTTP метода
-  if (_method == 'DELETE') { // если метод DELETE...
+  if (_method === 'DELETE') { // если метод DELETE...
     const { transaction } = request.body;// получение id из тела запроса
-    const removingTransaction = transactions.find({ transaction });// нахождение удаляемой транзакции
+    // нахождение удаляемой транзакции
+    const removingTransaction = transactions.find({ transaction });
     if (removingTransaction.value()) { // если значение транзакции существует...
       transactions.remove({ transaction }).write();// удалить транзакцию и записать это в БД
-      response.json({ success: true });// отправление ответа с успешностью
+      response.json({ success: true });// отправление ответа с успехом
     } else { // если значение транзакции не существует...
-      response.json({ success: false });// отправление ответа с неуспешностью
+      response.json({ success: false });// отправление ответа с неудачей
     }
   }
-  if (_method == 'PUT') { // если метод PUT...
+  if (_method === 'PUT') { // если метод PUT...
     const {
       type, name, sum, account_id,
     } = request.body;// получение значений из тела запроса
     // нахождение значения текущего пользователя
     const currentUser = db.get('users').find({ isAuthorized: true }).value();
-    if (!currentUser)// если текущего авторизованного пользователя нету
-    // отправление ответа с ошибкой о необходимости авторизации
-    { response.json({ success: false, error: 'Необходима авторизация' }); } else { // если авторизованный пользователь существует
+    if (!currentUser) {
+      // если текущего авторизованного пользователя нет
+      // отправление ответа с ошибкой о необходимости авторизации
+      response.json({ success: false, error: 'Необходима авторизация' });
+    } else {
+      // если авторизованный пользователь существует
       const currentUserId = currentUser.user_id;// получить id текущего пользователя
       // добавление существующей транзакцию к списку и записывание в БД
       transactions.push({

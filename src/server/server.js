@@ -1,33 +1,13 @@
 require('dotenv').config();
 
-const { PORT, PUBLIC_PATH, INDEX_FILE } = process.env;
+const { PORT, INDEX_FILE } = process.env;
+
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
-
 const low = require('lowdb');
 
-const FileSync = require('lowdb/adapters/FileSync', {
-  serialize: (data) => encrypt(JSON.stringify(data)),
-  deserialize: (data) => JSON.parse(decrypt(data)),
-});
-const db = low(new FileSync('db.json'));
-if (!db.get('users').value()) { setDefaultUser(db); }
-
-const app = express();
-app.use(express.static(`${__dirname}/${PUBLIC_PATH}`));
-
-const api = require('./routes');
-
-app.use('/', api);
-app.use(morgan('tiny'));
-
-app.get('*', (_, res) => {
-  res.sendFile(path.resolve(`${__dirname}/${PUBLIC_PATH}`, INDEX_FILE));
-});
-
-app.listen(PORT, () => console.log(`Server started at ${PORT}`));
-
+const FileSync = require('lowdb/adapters/FileSync');
 
 function setDefaultUser(database) {
   database.defaults({
@@ -90,3 +70,23 @@ function setDefaultUser(database) {
     ],
   }).write();
 }
+
+const db = low(new FileSync('db.json'));
+if (!db.get('users').value()) { setDefaultUser(db); }
+
+const app = express();
+app.use(express.static(__dirname));
+
+const api = require('./routes');
+
+app.use('/', api);
+app.use(morgan('tiny'));
+
+app.get('*', (_, res) => {
+  res.sendFile(path.resolve(`${__dirname}`, INDEX_FILE));
+});
+
+app.listen(PORT, () => {
+  console.log(`App runs at http://localhost:${PORT}....`);
+  console.log('Press Ctrl+C to quit.');
+});
