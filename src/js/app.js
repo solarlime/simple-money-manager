@@ -57,6 +57,21 @@ export default class App {
     };
   }
 
+  static setGreeting(state) {
+    const button = this.element.querySelector('button.remove-account');
+
+    if (state) {
+      button.classList.add('remove-element');
+      if (state === 'init') {
+        this.pages.transactions.renderTitle('Пожалуйста, пройдите процедуру регистрации или авторизуйтесь для начала работы.');
+      } else if (state === 'user-logged') {
+        this.pages.transactions.renderTitle('Нет ни одного счёта. Создайте первый!');
+      }
+    } else {
+      button.classList.remove('remove-element');
+    }
+  }
+
   /**
    * Инициализирует всплывающие окна
    * */
@@ -159,6 +174,7 @@ export default class App {
       this.element.classList.remove(`app_${this.state}`);
     }
     this.element.classList.add(`app_${state}`);
+    this.setGreeting(state);
     this.state = state;
 
     if (state === 'user-logged') {
