@@ -24,8 +24,8 @@ export default class User {
    * Удаляет информацию об авторизованном
    * пользователе из локального хранилища.
    * */
-  static unsetCurrent(user) {
-    localStorage.removeItem(user);
+  static unsetCurrent() {
+    localStorage.removeItem('user');
   }
 
   /**
@@ -116,7 +116,7 @@ export default class User {
       method: 'POST',
       callback: (err, response) => {
         if (response.user) {
-          this.unsetCurrent(response.user);
+          this.unsetCurrent();
         }
         callback(err, response);
       },
