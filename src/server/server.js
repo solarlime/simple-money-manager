@@ -87,6 +87,6 @@ app.get('*', (_, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`App runs at http://localhost:${PORT}....`);
+  console.log(`App runs at http://localhost:${PORT}.`);
   console.log('Press Ctrl+C to quit.');
 });
