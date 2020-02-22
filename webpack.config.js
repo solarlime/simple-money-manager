@@ -72,6 +72,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
+      favicon: './src/img/favicon.ico',
       template: './src/html/index.html',
       filename: './index.html',
       excludeChunks: ['server'],
