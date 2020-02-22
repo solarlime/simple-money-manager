@@ -29,7 +29,6 @@ export default class TransactionsPage {
    * Вызывает метод render для отрисовки страницы
    * */
   update() {
-    console.log(this.lastOptions);
     if (this.lastOptions) {
       this.render(this.lastOptions);
     } else {
@@ -80,8 +79,6 @@ export default class TransactionsPage {
     const confirmation = confirm('Вы действительно хотите удалить транзакцию?');
     if (confirmation) {
       Transaction.remove(id, User.current(), (err, response) => {
-        console.log(id);
-        console.log(User.current());
         if (response) {
           App.update();
         }
@@ -100,6 +97,7 @@ export default class TransactionsPage {
       Account.get(options.account_id, User.current(), (e, res) => {
         if (res) {
           this.renderTitle(res.data.find((item) => item.id === options.account_id).name);
+          App.setGreeting(false);
           Transaction.list(options, (err, response) => {
             if (response) {
               this.renderTransactions(response.data);
@@ -118,7 +116,7 @@ export default class TransactionsPage {
    * */
   clear() {
     this.renderTransactions();
-    this.renderTitle('Название счёта');
+    App.setGreeting(true);
   }
 
   /**
@@ -159,17 +157,19 @@ export default class TransactionsPage {
         + `          <div class="transaction__date">${this.formatDate(item.created_at)}</div>\n`
         + '      </div>\n'
         + '    </div>\n'
-        + '    <div class="col-md-3">\n'
-        + '      <div class="transaction__summ">\n'
-        + `      <!--  сумма -->\n${item.sum
-        }        <span class="currency">₽</span>\n`
+        + '    <div class="div-container">\n'
+        + '      <div class="col-md-3">\n'
+        + '        <div class="transaction__summ">\n'
+        + `        <!--  сумма -->\n${item.sum
+        }          <span class="currency">₽</span>\n`
+        + '        </div>\n'
         + '      </div>\n'
-        + '    </div>\n'
-        + '    <div class="col-md-2 transaction__controls">\n'
-        + '        <!-- в data-id нужно поместить id -->\n'
-        + `        <button class="btn btn-danger transaction__remove" data-id="${item.transaction}">\n`
-        + '            <i class="fa fa-trash"></i>  \n'
-        + '        </button>\n'
+        + '      <div class="col-md-2 transaction__controls">\n'
+        + '          <!-- в data-id нужно поместить id -->\n'
+        + `          <button class="btn btn-danger transaction__remove" data-id="${item.transaction}">\n`
+        + '              <i class="fa fa-trash"></i>  \n'
+        + '          </button>\n'
+        + '      </div>\n'
         + '    </div>';
 
     const button = transaction.querySelector('button.transaction__remove');
