@@ -5,6 +5,38 @@
   height: 50px;
 }
 
+.remove-element {
+  display: none !important;
+}
+
+.div-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.content-header-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.transaction__controls {
+  width: auto;
+}
+
+.col-md-3 {
+  width: auto;
+}
+
+.transaction {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .user-panel {
   display: none;
 }
@@ -77,13 +109,8 @@
 
 .transaction__summ {
   font-size: 20px;
-  line-height: 70px;
 }
 
 .transaction__details {
   display: flex;
-}
-
-.transaction__controls {
-  line-height: 70px;
 }
