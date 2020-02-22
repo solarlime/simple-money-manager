@@ -45,7 +45,6 @@ export default class AsyncForm {
     const entries = formData.entries();
     const data = {};
     for (const item of entries) {
-      // TODO: Array destructing
       // eslint-disable-next-line prefer-destructuring
       data[item[0]] = item[1];
     }
@@ -60,6 +59,6 @@ export default class AsyncForm {
    * данные, полученные из метода getData()
    * */
   submit() {
-    this.onSubmit(this.getData());
+    this.onSubmit(this.getData(), () => setTimeout(() => document.body.classList.remove('sidebar-open'), 500));
   }
 }
