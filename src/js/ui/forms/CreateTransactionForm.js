@@ -57,7 +57,7 @@ export default class CreateTransactionForm extends AsyncForm {
    * вызывает App.update(), сбрасывает форму и закрывает окно,
    * в котором находится форма
    * */
-  onSubmit(options) {
+  onSubmit(options, callback) {
     Transaction.create(options, (err, response) => {
       if (response) {
         const selectIncome = this.element.querySelector('#income-accounts-list');
@@ -67,7 +67,7 @@ export default class CreateTransactionForm extends AsyncForm {
         } else {
           App.getModal('newExpense').close();
         }
-
+        callback();
         App.update();
       }
     });

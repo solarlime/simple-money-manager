@@ -15,11 +15,12 @@ export default class RegisterForm extends AsyncForm {
    * состояние App.setState( 'user-logged' )
    * и закрывает окно, в котором находится форма
    * */
-  onSubmit(options) {
+  onSubmit(options, callback) {
     User.register(options, (err, response) => {
       if (response) {
         App.setState('user-logged');
         App.getModal('register').close();
+        callback();
       }
     });
   }

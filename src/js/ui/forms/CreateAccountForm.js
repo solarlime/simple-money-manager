@@ -15,10 +15,11 @@ export default class CreateAccountForm extends AsyncForm {
    * а также вызывает App.update()
    * и сбрасывает форму
    * */
-  onSubmit(options) {
+  onSubmit(options, callback) {
     Account.create(options, (err, response) => {
       if (response) {
         App.getModal('createAccount').close();
+        callback();
         App.update();
       }
     });
