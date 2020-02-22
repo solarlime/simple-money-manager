@@ -64,7 +64,7 @@ export default class App {
       button.classList.add('remove-element');
       if (state === 'init') {
         this.pages.transactions.renderTitle('Пожалуйста, пройдите процедуру регистрации или авторизуйтесь для начала работы.');
-      } else if (state === 'user-logged') {
+      } else if ((state === 'user-logged') || (this.element.querySelector('li.account'))) {
         this.pages.transactions.renderTitle('Нет ни одного счёта. Создайте первый!');
       }
     } else {
