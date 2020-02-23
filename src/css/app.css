@@ -32,6 +32,22 @@
   width: auto;
 }
 
+.up-button {
+  position: fixed;
+  bottom: 20px;
+  right: calc(50% - 63px);
+  width: 126px;
+  height: 33px;
+  color: #ffffff;
+  background-image: linear-gradient(to bottom, #7d99d9 0, #1d83e7 100%);
+}
+
+.up-button:hover {
+  color: #ffffff;
+  text-decoration: none;
+  background-image: linear-gradient(to top, #7d99d9 0, #1d83e7 100%);
+}
+
 .transaction {
   display: flex;
   flex-wrap: wrap;
