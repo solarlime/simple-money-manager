@@ -31,7 +31,7 @@ export default class CreateAccountForm extends AsyncForm {
         if (response) {
           App.getModal('createAccount').close();
           callback();
-          App.update();
+          App.update({ account_id: response.account.id });
         }
       });
     }
