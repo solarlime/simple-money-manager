@@ -35,10 +35,10 @@ router.post('/', upload.none(), (request, response) => {
   }
   if (_method === 'PUT') { // если метод PUT...
     const {
-      type, name, sum, account_id,
+      user, type, name, sum, account_id,
     } = request.body;// получение значений из тела запроса
     // нахождение значения текущего пользователя
-    const currentUser = db.get('users').find({ isAuthorized: true }).value();
+    const currentUser = db.get('users').find({ isAuthorized: true, id: user }).value();
     if (!currentUser) {
       // если текущего авторизованного пользователя нет
       // отправление ответа с ошибкой о необходимости авторизации

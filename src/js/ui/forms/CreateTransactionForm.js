@@ -4,6 +4,7 @@ import User from '../../api/User';
 import AsyncForm from './AsyncForm';
 import Account from '../../api/Account';
 import Transaction from '../../api/Transaction';
+import getUser from '../../api/getUser';
 
 /**
  * Класс CreateTransactionForm управляет формой
@@ -56,20 +57,26 @@ export default class CreateTransactionForm extends AsyncForm {
    * с помощью Transaction.create. По успешному результату
    * вызывает App.update(), сбрасывает форму и закрывает окно,
    * в котором находится форма
+   *
+   * Для однозначности выбора (если одновременно работают несколько
+   * пользователей) запрашиваем user_id. Promise в помощь.
    * */
   onSubmit(options, callback) {
-    Transaction.create(options, (err, response) => {
-      if (response) {
-        const selectIncome = this.element.querySelector('#income-accounts-list');
+    const resolveUser = getUser();
+    resolveUser.then((res) => {
+      Transaction.create({ user: res.id, ...options }, (err, response) => {
+        if (response) {
+          const selectIncome = this.element.querySelector('#income-accounts-list');
 
-        if (selectIncome) {
-          App.getModal('newIncome').close();
-        } else {
-          App.getModal('newExpense').close();
+          if (selectIncome) {
+            App.getModal('newIncome').close();
+          } else {
+            App.getModal('newExpense').close();
+          }
+          callback();
+          App.update({ account_id: options.account_id });
         }
-        callback();
-        App.update({ account_id: options.account_id });
-      }
+      });
     });
   }
 }
