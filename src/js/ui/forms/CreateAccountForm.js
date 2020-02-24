@@ -2,7 +2,7 @@
 import App from '../../app';
 import AsyncForm from './AsyncForm';
 import Account from '../../api/Account';
-import User from '../../api/User';
+import getUser from '../../api/getUser';
 
 /**
  * Класс CreateAccountForm управляет формой
@@ -32,12 +32,6 @@ export default class CreateAccountForm extends AsyncForm {
      * Для однозначности выбора (если одновременно работают несколько
      * пользователей) запрашиваем user_id. Promise в помощь.
      */
-
-    function getUser() {
-      return new Promise((resolve) => {
-        resolve(User.current());
-      });
-    }
 
     const resolveUser = getUser();
     resolveUser.then((res) => {
