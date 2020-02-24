@@ -39,7 +39,6 @@ export default class TransactionsWidget {
   }
 
   update() {
-    console.log(document.querySelectorAll('li.account'));
     if (!document.querySelector('li.account')) {
       this.income.setAttribute('disabled', '');
       this.expense.setAttribute('disabled', '');
