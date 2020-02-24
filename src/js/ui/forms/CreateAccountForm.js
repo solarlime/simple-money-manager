@@ -15,7 +15,7 @@ export default class CreateAccountForm extends AsyncForm {
    * а также вызывает App.update()
    * и сбрасывает форму.
    * Предварительно проверяет, использовано ли уже
-   * такое имя и запрашивает подтверждение.
+   * такое имя, и запрашивает подтверждение.
    * */
   onSubmit(options, callback) {
     const duplicate = Array.from(document.querySelectorAll('li.account'))
