@@ -20,7 +20,6 @@ export default class AccountsWidget {
   constructor(element) {
     if (element) {
       this.element = element;
-      // this.update();
     } else {
       console.error('Element does not exist!');
     }
@@ -67,6 +66,7 @@ export default class AccountsWidget {
         if (response) {
           this.clear();
           response.data.forEach((item) => (this.renderItem(item)));
+          App.getWidget('transactions').update();
           this.registerEvents();
         }
       });

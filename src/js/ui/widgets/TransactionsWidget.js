@@ -15,6 +15,8 @@ export default class TransactionsWidget {
    * */
   constructor(element) {
     this.element = element;
+    this.income = this.element.querySelector('button.create-income-button');
+    this.expense = this.element.querySelector('button.create-expense-button');
     this.registerEvents();
   }
 
@@ -25,16 +27,25 @@ export default class TransactionsWidget {
    * экземпляра окна
    * */
   registerEvents() {
-    const income = document.querySelector('button.create-income-button');
-    const expense = document.querySelector('button.create-expense-button');
-    // console.log(income);
-
-    income.addEventListener('click', () => {
+    this.income.addEventListener('click', () => {
       App.getModal('newIncome').open();
     });
 
-    expense.addEventListener('click', () => {
+    this.expense.addEventListener('click', () => {
       App.getModal('newExpense').open();
     });
+
+    this.update();
+  }
+
+  update() {
+    console.log(document.querySelectorAll('li.account'));
+    if (!document.querySelector('li.account')) {
+      this.income.setAttribute('disabled', '');
+      this.expense.setAttribute('disabled', '');
+    } else {
+      this.income.removeAttribute('disabled');
+      this.expense.removeAttribute('disabled');
+    }
   }
 }
