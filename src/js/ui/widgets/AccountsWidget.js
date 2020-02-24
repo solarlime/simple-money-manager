@@ -47,6 +47,7 @@ export default class AccountsWidget {
 
     this.element.querySelectorAll('li.account').forEach((item) => {
       item.addEventListener('click', () => {
+        document.body.classList.remove('sidebar-open');
         this.onSelectAccount(item);
       });
     });
