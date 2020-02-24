@@ -2,6 +2,7 @@
 import App from '../../app';
 import AsyncForm from './AsyncForm';
 import Account from '../../api/Account';
+import User from '../../api/User';
 
 /**
  * Класс CreateAccountForm управляет формой
@@ -26,14 +27,30 @@ export default class CreateAccountForm extends AsyncForm {
       // eslint-disable-next-line no-restricted-globals
       confirmation = confirm('Такое имя уже использовано. Всё равно создать?');
     }
-    if (confirmation) {
-      Account.create(options, (err, response) => {
-        if (response) {
-          App.getModal('createAccount').close();
-          callback();
-          App.update({ account_id: response.account.id });
-        }
+
+    /**
+     * Для однозначности выбора (если одновременно работают несколько
+     * пользователей) запрашиваем user_id. Promise в помощь.
+     */
+
+    function getUser() {
+      return new Promise((resolve) => {
+        resolve(User.current());
       });
     }
+
+    const resolveUser = getUser();
+    resolveUser.then((res) => {
+      if (confirmation) {
+        Account.create({ user: res.id, ...options }, (err, response) => {
+          if (response) {
+            console.log(response);
+            App.getModal('createAccount').close();
+            callback();
+            App.update({ account_id: response.account.id });
+          }
+        });
+      }
+    });
   }
 }

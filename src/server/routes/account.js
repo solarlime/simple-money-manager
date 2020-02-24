@@ -10,9 +10,9 @@ const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 
 // функция создания счёта
-function createAccount(response, name) {
+function createAccount(response, name, userId) {
   const db = low(new FileSync('db.json'));// получение БД
-  const user = db.get('users').find({ isAuthorized: true });// поиск авторизованного пользователя
+  const user = db.get('users').find({ isAuthorized: true, id: userId });// поиск авторизованного пользователя
   const userValue = user.value();// получение значения авторизованного пользователя
   const createdAccount = { name, user_id: userValue.id, id: uniqid() };// создаваемый аккаунт
   db.get('accounts').push(createdAccount).write();// добавление созданного аккаунта к уже существующим и запись в БД
@@ -37,10 +37,10 @@ function removeAccount(response, id) {
 // запрос изменения счета
 router.post('/', upload.none(), (request, response) => {
   // получение метода и названия счёта
-  const { _method, name } = request.body;
+  const { _method, user, name } = request.body;
   if (_method === 'PUT') {
     // если метод PUT...
-    createAccount(response, name);// создание счёта
+    createAccount(response, name, user);// создание счёта
   }
 
   if (_method === 'DELETE') { // если метод DELETE...
