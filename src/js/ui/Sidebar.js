@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 import App from '../app';
 import User from '../api/User';
+import getUser from '../api/getUser';
 
 /**
  * Класс Sidebar отвечает за работу боковой колонки:
@@ -34,7 +35,8 @@ export default class Sidebar {
    * При нажатии на кнопку входа, показывает окно входа
    * (через найденное в App.getModal)
    * При нажатии на кнопку регистрации показывает окно регистрации
-   * При нажатии на кнопку выхода вызывает User.logout и по успешному
+   * При нажатии на кнопку выхода вызывает User.current() в Promise.
+   * Дождавшись ответа, вызывает User.logout и по успешному
    * выходу устанавливает App.setState( 'init' )
    * */
   static initAuthLinks() {
@@ -51,10 +53,13 @@ export default class Sidebar {
     });
 
     logoutElem.addEventListener('click', () => {
-      User.logout(0, (err, response) => {
-        if (response.success) {
-          App.setState('init');
-        }
+      const resolveUser = getUser();
+      resolveUser.then((res) => {
+        User.logout({ user: res.id }, (err, response) => {
+          if (response.success) {
+            App.setState('init');
+          }
+        });
       });
     });
   }

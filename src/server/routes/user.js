@@ -68,11 +68,12 @@ router.post('/login', upload.none(), (request, response) => {
 });
 
 // запрос разлогина пользователя
-router.post('/logout', (request, response) => {
+router.post('/logout', upload.none(), (request, response) => {
+  const { user } = request.body;
   const db = low(new FileSync('db.json'));// получение БД
   // находится первый авторизованный пользователь,
   // ему присваивается флаг авторизации и записывается в БД
-  db.get('users').find({ isAuthorized: true }).assign({ isAuthorized: false }).write();
+  db.get('users').find({ isAuthorized: true, id: user }).assign({ isAuthorized: false }).write();
   // отправляется ответ успешности
   response.json({ success: true });
 });
