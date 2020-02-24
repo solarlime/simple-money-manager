@@ -32,16 +32,18 @@ export default class AccountsWidget {
    * (которые отображены в боковой колонке),
    * вызывает AccountsWidget.onSelectAccount()
    * */
-  registerEvents() {
+  registerEvents(options) {
     const createAccountElem = document.querySelector('.create-account');
 
     createAccountElem.addEventListener('click', () => {
       App.getModal('createAccount').open();
     });
-
-    const defaultAccount = this.element.querySelector('li.account');
-    defaultAccount.classList.add('active');
-    App.showPage('transactions', { account_id: defaultAccount.getAttribute('data-id') });
+    let account = this.element.querySelector(`li.account[data-id="${options.account_id}"]`);
+    if (!account) {
+      account = this.element.querySelector('li.account');
+    }
+    account.classList.add('active');
+    App.showPage('transactions', { account_id: account.getAttribute('data-id') });
 
     this.element.querySelectorAll('li.account').forEach((item) => {
       item.addEventListener('click', () => {
@@ -60,14 +62,14 @@ export default class AccountsWidget {
    * Отображает список полученных счетов с помощью
    * метода renderItem()
    * */
-  update() {
+  update(options) {
     if (User.current()) {
       Account.list(User.current(), (err, response) => {
         if (response) {
           this.clear();
           response.data.forEach((item) => (this.renderItem(item)));
           App.getWidget('transactions').update();
-          this.registerEvents();
+          this.registerEvents(options);
         }
       });
     }

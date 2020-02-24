@@ -28,8 +28,10 @@ export default class TransactionsPage {
   /**
    * Вызывает метод render для отрисовки страницы
    * */
-  update() {
-    if (this.lastOptions) {
+  update(options) {
+    if (options) {
+      this.render(options);
+    } else if (this.lastOptions) {
       this.render(this.lastOptions);
     } else {
       this.render();
@@ -80,7 +82,7 @@ export default class TransactionsPage {
     if (confirmation) {
       Transaction.remove(id, User.current(), (err, response) => {
         if (response) {
-          App.update();
+          App.update(this.lastOptions);
         }
       });
     }

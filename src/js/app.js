@@ -113,17 +113,17 @@ export default class App {
    * Возвращает всплывающее окно
    * Обращается к объекту App.modals и извлекает
    * из него свойство modalName:
-   * App.getModal( 'login' ); // извелекает App.modals.login
+   * App.getModal( 'login' ); // извлекает App.modals.login
    * */
   static getModal(modalName) {
     return this.modals[modalName];
   }
 
   /**
-   * Возвращает страницу
+   * Возвращает страницу.
    * Обращается к объекту App.pages и извлекает
    * из него свойство pageName:
-   * App.getPage( 'transactions' ); // извелекает App.pages.transactions
+   * App.getPage( 'transactions' ); // извлекает App.pages.transactions
    * */
   static getPage(pageName) {
     return this.pages[pageName];
@@ -133,7 +133,7 @@ export default class App {
    * Возвращает виджет по названию
    * Обращается к объекту App.widgets и извлекает
    * из него свойство widgetName:
-   * App.getWidget( 'transactions' ); // извелекает App.widgets.transactions
+   * App.getWidget( 'transactions' ); // извлекает App.widgets.transactions
    * */
   static getWidget(widgetName) {
     return this.widgets[widgetName];
@@ -143,7 +143,7 @@ export default class App {
    * Возвращает форму по названию
    * Обращается к объекту App.forms и извлекает
    * из него свойство formName:
-   * App.getWidget( 'transactions' ); // извелекает App.forms.transactions
+   * App.getWidget( 'transactions' ); // извлекает App.forms.transactions
    * */
   static getForm(formName) {
     return this.forms[formName];
@@ -186,7 +186,7 @@ export default class App {
   }
 
   /**
-   * Очищает страницы
+   * Очищает страницы.
    * Обращается к единственной странице transactions
    * через getPage и вызывает у этой страницы
    * метод clear()
@@ -199,28 +199,28 @@ export default class App {
    * Обновляет виджеты и содержимое страниц
    * Вызывает методы updateWidgets и updatePages()
    * */
-  static update() {
-    this.updateWidgets();
-    this.updatePages();
+  static update(options = 0) {
+    this.updateWidgets(options);
+    this.updatePages(options);
     this.updateForms();
   }
 
   /**
-   * Обновляет страницы
+   * Обновляет страницы.
    * Обращается к единственной странице transactions
    * через getPage и вызывает у этой страницы
    * метод update()
    * */
-  static updatePages() {
-    this.getPage('transactions').update();
+  static updatePages(options) {
+    this.getPage('transactions').update(options);
   }
 
   /**
-   * Вызвает метод update() у виджетов
+   * Вызывает метод update() у виджетов
    * accounts и user
    * */
-  static updateWidgets() {
-    this.getWidget('accounts').update();
+  static updateWidgets(options) {
+    this.getWidget('accounts').update(options);
     this.getWidget('user').update();
   }
 

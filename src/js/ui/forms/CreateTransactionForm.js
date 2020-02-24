@@ -68,7 +68,7 @@ export default class CreateTransactionForm extends AsyncForm {
           App.getModal('newExpense').close();
         }
         callback();
-        App.update();
+        App.update({ account_id: options.account_id });
       }
     });
   }
