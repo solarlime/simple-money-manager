@@ -10,7 +10,7 @@ This app provides:
 2. Creating and deleting accounts
 3. Creating and deleting transactions 
 
-## Technologies:
+## Works on:
 
 - HTML
 - CSS
@@ -20,7 +20,7 @@ This app provides:
 - Babel
 - Express
 
-## Initialising
+## How to run:
 
 1. git clone
 2. npm install
