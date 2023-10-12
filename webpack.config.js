@@ -1,8 +1,8 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -15,31 +15,15 @@ module.exports = {
   },
   mode: 'none',
   target: 'web',
-  devtool: '#source-map',
+  devtool: 'inline-source-map',
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true, // set to true if you want JS source maps
-      }),
-      new OptimizeCSSAssetsPlugin({}),
+      new TerserPlugin(),
+      new CssMinimizerPlugin(),
     ],
   },
   module: {
     rules: [
-      {
-        // Linting
-        enforce: 'pre',
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          emitWarning: true,
-          failOnError: false,
-          failOnWarning: false,
-        },
-      },
       {
         // Transpiles ES6-8 into ES5
         test: /\.js$/,
