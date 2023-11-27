@@ -21,7 +21,7 @@ module.exports = (env, argv) => {
       filename: '[name].js',
     },
     mode: argv.mode,
-    target: 'node',
+    externalsPresets: { node: true },
     node: {
       // Need this when working with express, otherwise the build fails
       __dirname: false, // if you don't put this is, __dirname
