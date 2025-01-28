@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
@@ -44,7 +44,7 @@ module.exports = {
       {
         // Loads images into CSS and Javascript files
         test: /\.(png|jpg|svg|gif)$/,
-        use: [{ loader: 'url-loader' }],
+        type: 'asset/resource',
       },
       {
         // Loads CSS into a file when you import it via Javascript
